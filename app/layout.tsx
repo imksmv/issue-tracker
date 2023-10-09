@@ -4,7 +4,6 @@ import { Inter } from "next/font/google"
 import { Theme } from "@radix-ui/themes"
 import type { Metadata } from "next"
 import NavBar from "./NavBar"
-import { ThemeProvider } from "./theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,19 +19,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Theme>
-            <NavBar />
-            <main>{children}</main>
-          </Theme>
-        </ThemeProvider>
+        <Theme>
+          <NavBar />
+          <main>{children}</main>
+        </Theme>
       </body>
     </html>
   )
