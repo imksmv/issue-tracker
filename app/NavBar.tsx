@@ -4,6 +4,7 @@ import { Bug } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "./lib/utils"
+import { ThemeToggler } from "@/components/ThemeToggle"
 
 const NavBar = () => {
   const links = [
@@ -14,26 +15,29 @@ const NavBar = () => {
   const currentPath = usePathname()
 
   return (
-    <header className="border-b mb-5 py-4">
-      <nav className="container flex space-x-6">
-        <Link href="/">
-          <Bug />
-        </Link>
-        <ul className="flex space-x-6">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={cn("hover:text-zinc-500 transition-colors", {
-                  "text-zinc-500 underline underline-offset-4":
-                    link.href === currentPath,
-                })}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <header className="border-b mb-5 py-2">
+      <nav className="container flex justify-between">
+        <div className="flex items-center space-x-5">
+          <Link href="/">
+            <Bug size={28} />
+          </Link>
+          <ul className="flex space-x-3">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={cn("px-3", {
+                    "bg-foreground/10 rounded-md py-1":
+                      link.href === currentPath,
+                  })}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ThemeToggler />
       </nav>
     </header>
   )

@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const IssuesPage = () => {
   return (
-    <Button>
+    <Button asChild>
       <Link href="/issues/new">New Issue</Link>
     </Button>
   )
