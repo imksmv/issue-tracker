@@ -1,8 +1,9 @@
-import "@radix-ui/themes/styles.css"
 import "./globals.css"
-import { Theme } from "@radix-ui/themes"
 import type { Metadata } from "next"
+import { Exo_2 } from "next/font/google"
 import NavBar from "./NavBar"
+
+const exo_2 = Exo_2({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Issue Tracker",
@@ -17,11 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Theme accentColor="purple">
-          <NavBar />
-          <main className="container">{children}</main>
-        </Theme>
+      <body className={exo_2.className}>
+        <NavBar />
+        <main className="container">{children}</main>
       </body>
     </html>
   )
