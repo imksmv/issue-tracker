@@ -4,7 +4,7 @@ import { Button, TextArea, TextField } from "@radix-ui/themes"
 
 const NewIssuePage = () => {
   return (
-    <div className="container max-w-lg m-0 space-y-3">
+    <div className="max-w-lg space-y-3">
       <TextField.Root>
         <TextField.Input placeholder="Title" />
       </TextField.Root>
