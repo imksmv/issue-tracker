@@ -35,7 +35,7 @@ const NewIssuePage = () => {
           <SimpleMDE placeholder="Description" {...field} />
         )}
       />
-      <Button>Submit New Issue</Button>
+      <Button className="">Create Issue</Button>
     </form>
   )
 }
