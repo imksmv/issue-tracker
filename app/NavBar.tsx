@@ -21,14 +21,13 @@ const NavBar = () => {
           <Link href="/">
             <Bug size={28} />
           </Link>
-          <ul className="flex space-x-3">
+          <ul className="flex space-x-1 bg-accent py-1.5 px-2 rounded-md">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   className={cn("px-3", {
-                    "bg-foreground/10 rounded-md py-1":
-                      link.href === currentPath,
+                    "bg-background rounded-md py-1": link.href === currentPath,
                   })}
                 >
                   {link.label}
