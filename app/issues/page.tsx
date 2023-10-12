@@ -3,9 +3,11 @@ import Link from "next/link"
 
 const IssuesPage = () => {
   return (
-    <Button asChild>
-      <Link href="/issues/new">New Issue</Link>
-    </Button>
+    <section className="container">
+      <Button asChild>
+        <Link href="/issues/new">New Issue</Link>
+      </Button>
+    </section>
   )
 }
 
