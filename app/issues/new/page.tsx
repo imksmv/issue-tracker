@@ -1,6 +1,7 @@
 "use client"
 
 import { createIssueSchema } from "@/app/validationSchemas"
+import Spinner from "@/components/Spinner"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import "easymde/dist/easymde.min.css"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import SimpleMDE from "react-simplemde-editor"
 import z from "zod"
@@ -22,6 +24,8 @@ import z from "zod"
 type IssueForm = z.infer<typeof createIssueSchema>
 
 const NewIssuePage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const form = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
     defaultValues: {
@@ -40,9 +44,11 @@ const NewIssuePage = () => {
           className="max-w-xl space-y-3"
           onSubmit={form.handleSubmit(async (data) => {
             try {
+              setIsSubmitting(true)
               await axios.post("/api/issues", data)
               router.push("/issues")
             } catch (error) {
+              setIsSubmitting(false)
               toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
@@ -75,7 +81,9 @@ const NewIssuePage = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Create Issue</Button>
+          <Button variant="outline" disabled={isSubmitting} type="submit">
+            {isSubmitting ? <Spinner label="Processing..." /> : "Create Issue"}
+          </Button>
         </form>
       </Form>
     </section>
