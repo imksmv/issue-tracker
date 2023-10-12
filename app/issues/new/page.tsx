@@ -34,29 +34,28 @@ const NewIssuePage = () => {
     },
   })
 
+  const onSubmit = form.handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true)
+      await axios.post("/api/issues", data)
+      router.push("/issues")
+    } catch (error) {
+      setIsSubmitting(false)
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
+    }
+  })
+
   const router = useRouter()
   const { toast } = useToast()
 
   return (
     <section className="container">
       <Form {...form}>
-        <form
-          className="max-w-xl space-y-3"
-          onSubmit={form.handleSubmit(async (data) => {
-            try {
-              setIsSubmitting(true)
-              await axios.post("/api/issues", data)
-              router.push("/issues")
-            } catch (error) {
-              setIsSubmitting(false)
-              toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-              })
-            }
-          })}
-        >
+        <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
           <FormField
             name="title"
             control={form.control}
