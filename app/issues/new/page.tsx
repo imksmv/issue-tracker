@@ -1,5 +1,6 @@
 "use client"
 
+import { createIssueSchema } from "@/app/validationSchemas"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -18,26 +19,18 @@ import { useForm } from "react-hook-form"
 import SimpleMDE from "react-simplemde-editor"
 import z from "zod"
 
-// const formSchema = z.object({
-//   title: z.string().min(3),
-//   description: z.string().min(5),
-// })
-
-// type formType = z.infer<typeof formSchema>
+type IssueForm = z.infer<typeof createIssueSchema>
 
 const NewIssuePage = () => {
-  // const form = useForm<formType>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: {
-  //     title: "",
-  //     description: "",
-  //   },
-  // })
-
-  const form = useForm()
+  const form = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+    },
+  })
 
   const router = useRouter()
-
   const { toast } = useToast()
 
   return (
@@ -66,7 +59,7 @@ const NewIssuePage = () => {
                 <FormControl>
                   <Input placeholder="Title" {...field} />
                 </FormControl>
-                {/* <FormMessage /> */}
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -78,7 +71,7 @@ const NewIssuePage = () => {
                 <FormControl>
                   <SimpleMDE placeholder="Description" {...field} />
                 </FormControl>
-                {/* <FormMessage /> */}
+                <FormMessage />
               </FormItem>
             )}
           />
