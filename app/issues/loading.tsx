@@ -30,16 +30,16 @@ const LoadingIssuePage = () => {
           {issues.map((issue) => (
             <TableRow key={issue}>
               <TableCell>
-                <Skeleton className="h-5 w-[150px]" />
+                <Skeleton className="h-5 w-[200px] md:w-auto" />
                 <div className="block md:hidden mt-1">
-                  <Skeleton className="h-5 w-[80px]" />
+                  <Skeleton className="h-5 w-[100px]" />
                 </div>
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <Skeleton className="h-5 w-[150px]" />
+                <Skeleton className="h-5" />
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <Skeleton className="h-5 w-[150px]" />
+                <Skeleton className="h-5" />
               </TableCell>
             </TableRow>
           ))}
