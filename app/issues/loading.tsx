@@ -1,4 +1,4 @@
-import IssueStatusBadge from "@/components/IssueStatusBadge"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -8,16 +8,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import prisma from "@/prisma/client"
-import delay from "delay"
 import IssueActions from "./IssueActions"
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany()
-  await delay(2000)
+const LoadingIssuePage = () => {
+  const issues = [1, 2, 3, 4, 5, 6]
 
   return (
-    <section className="container">
+    <div className="container">
       <IssueActions />
 
       <Table className="mb-3">
@@ -31,25 +28,25 @@ const IssuesPage = async () => {
         </TableHeader>
         <TableBody>
           {issues.map((issue) => (
-            <TableRow key={issue.id}>
-              <TableCell className="font-medium">
-                {issue.title}
+            <TableRow key={issue}>
+              <TableCell>
+                <Skeleton className="h-5 w-[150px]" />
                 <div className="block md:hidden mt-1">
-                  <IssueStatusBadge status={issue.status} />
+                  <Skeleton className="h-5 w-[80px]" />
                 </div>
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <IssueStatusBadge status={issue.status} />
+                <Skeleton className="h-5 w-[150px]" />
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                {issue.createdAt.toDateString()}
+                <Skeleton className="h-5 w-[150px]" />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </section>
+    </div>
   )
 }
 
-export default IssuesPage
+export default LoadingIssuePage
