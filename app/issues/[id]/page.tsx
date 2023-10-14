@@ -1,9 +1,10 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge"
 import { TypographyH1 } from "@/components/TypographyH1"
 import { TypographyP } from "@/components/TypographyP"
-import { Card, CardDescription } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import prisma from "@/prisma/client"
 import { notFound } from "next/navigation"
+import ReactMarkdown from "react-markdown"
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const issue = await prisma.issue.findUnique({
@@ -19,8 +20,8 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
         <IssueStatusBadge status={issue.status} />
         <TypographyP>{issue.updatedAt.toDateString()}</TypographyP>
       </div>
-      <Card>
-        <CardDescription>{issue.description}</CardDescription>
+      <Card className="prose dark:prose-invert p-5 mt-5">
+        <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </section>
   )

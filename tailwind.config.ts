@@ -1,12 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -78,7 +73,35 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-headings": "hsl(var(--foreground))",
+            "--tw-prose-invert-headings": "hsl(var(--foreground))",
+
+            "--tw-prose-links": "hsl(var(--foreground))",
+            "--tw-prose-invert-links": "hsl(var(--foreground))",
+
+            "--tw-prose-bold": "hsl(var(--foreground))",
+            "--tw-prose-invert-bold": "hsl(var(--foreground))",
+
+            "--tw-prose-counters": "hsl(var(--foreground))",
+            "--tw-prose-invert-counters": "hsl(var(--foreground))",
+
+            "--tw-prose-bullets": "hsl(var(--foreground))",
+            "--tw-prose-invert-bullets": "hsl(var(--foreground))",
+
+            "--tw-prose-quotes": "hsl(var(--foreground))",
+            "--tw-prose-invert-quotes": "hsl(var(--foreground))",
+            "--tw-prose-quote-borders": "hsl(var(--foreground))",
+            "--tw-prose-invert-quote-borders": "hsl(var(--foreground))",
+
+            "--tw-prose-code": "hsl(var(--foreground))",
+            "--tw-prose-invert-code": "hsl(var(--foreground))",
+          },
+        },
+      }),
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }
