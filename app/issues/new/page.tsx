@@ -34,6 +34,9 @@ const NewIssuePage = () => {
     },
   })
 
+  const router = useRouter()
+  const { toast } = useToast()
+
   const onSubmit = form.handleSubmit(async (data) => {
     try {
       setIsSubmitting(true)
@@ -48,9 +51,6 @@ const NewIssuePage = () => {
       })
     }
   })
-
-  const router = useRouter()
-  const { toast } = useToast()
 
   return (
     <section className="container">
