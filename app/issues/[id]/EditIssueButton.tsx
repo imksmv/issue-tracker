@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { PenSquare } from "lucide-react"
 import Link from "next/link"
 
-const IssueEditButton = ({ issueId }: { issueId: number }) => {
+const EditIssueButton = ({ issueId }: { issueId: number }) => {
   return (
     <Button asChild>
       <Link href={`/issues/${issueId}/edit`}>
@@ -12,4 +12,4 @@ const IssueEditButton = ({ issueId }: { issueId: number }) => {
   )
 }
 
-export default IssueEditButton
+export default EditIssueButton
