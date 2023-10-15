@@ -15,11 +15,15 @@ import { useToast } from "@/components/ui/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import "easymde/dist/easymde.min.css"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import SimpleMDE from "react-simplemde-editor"
 import z from "zod"
+
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+})
 
 type IssueForm = z.infer<typeof createIssueSchema>
 
