@@ -1,5 +1,6 @@
 "use client"
 
+import Spinner from "@/components/Spinner"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -14,17 +15,21 @@ import { useToast } from "@/components/ui/use-toast"
 import axios from "axios"
 import { Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter()
   const { toast } = useToast()
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const deleteIssue = async () => {
     try {
+      setIsDeleting(true)
       await axios.delete("/api/issues/" + issueId)
       router.push("/issues")
       router.refresh()
     } catch (error) {
+      setIsDeleting(false)
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
@@ -47,8 +52,12 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="destructive" onClick={deleteIssue}>
-            Delete Issue
+          <Button
+            variant="destructive"
+            onClick={deleteIssue}
+            disabled={isDeleting}
+          >
+            {isDeleting ? <Spinner label="Processing..." /> : "Delete Issue"}
           </Button>
         </DialogFooter>
       </DialogContent>
