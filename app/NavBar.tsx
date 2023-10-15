@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ThemeToggler } from "@/app/ThemeToggle"
+import { useSession } from "next-auth/react"
 
 const NavBar = () => {
   const links = [
@@ -13,6 +14,7 @@ const NavBar = () => {
   ]
 
   const currentPath = usePathname()
+  const { status, data: session } = useSession()
 
   return (
     <header className="border-b mb-5 py-2">
@@ -36,7 +38,15 @@ const NavBar = () => {
             ))}
           </ul>
         </div>
-        <ThemeToggler />
+        <div className="flex items-center gap-10">
+          {status === "authenticated" && (
+            <Link href="/api/auth/signout">Log out</Link>
+          )}
+          {status === "unauthenticated" && (
+            <Link href="/api/auth/signin">Log In</Link>
+          )}
+          <ThemeToggler />
+        </div>
       </nav>
     </header>
   )
