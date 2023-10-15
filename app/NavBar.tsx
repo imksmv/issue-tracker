@@ -3,8 +3,8 @@
 import { Bug } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "./lib/utils"
-import { ThemeToggler } from "@/components/ThemeToggle"
+import { cn } from "@/lib/utils"
+import { ThemeToggler } from "@/app/ThemeToggle"
 
 const NavBar = () => {
   const links = [
