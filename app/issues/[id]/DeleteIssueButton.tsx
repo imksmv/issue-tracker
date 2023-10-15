@@ -10,9 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import axios from "axios"
 import { Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
+  const router = useRouter()
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +31,15 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit" variant="destructive">
+          <Button
+            type="submit"
+            variant="destructive"
+            onClick={async () => {
+              await axios.delete("/api/issues/" + issueId)
+              router.push("/issues")
+              router.refresh()
+            }}
+          >
             Delete Issue
           </Button>
         </DialogFooter>
