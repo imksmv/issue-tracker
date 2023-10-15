@@ -16,15 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Issue } from "@prisma/client"
 import axios from "axios"
 import "easymde/dist/easymde.min.css"
-import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import SimpleMDE from "react-simplemde-editor"
 import z from "zod"
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-})
 
 type IssueFormData = z.infer<typeof issueSchema>
 
@@ -72,6 +68,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
               </FormItem>
             )}
           />
+
           <FormField
             name="description"
             control={form.control}
@@ -85,6 +82,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
               </FormItem>
             )}
           />
+
           <Button variant="outline" disabled={isSubmitting} type="submit">
             {isSubmitting ? (
               <Spinner label="Processing..." />

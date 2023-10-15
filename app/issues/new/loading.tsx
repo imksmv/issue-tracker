@@ -1,12 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import IssueFormSkeleton from "../_components/IssueFormSkeleton"
 
-const LoadingNewIssuePage = () => {
-  return (
-    <div className="container space-y-3">
-      <Skeleton className="h-10" />
-      <Skeleton className="h-80" />
-    </div>
-  )
-}
-
-export default LoadingNewIssuePage
+export default IssueFormSkeleton
