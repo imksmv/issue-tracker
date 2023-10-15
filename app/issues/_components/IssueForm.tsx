@@ -1,6 +1,6 @@
 "use client"
 
-import { createIssueSchema } from "@/app/validationSchemas"
+import { issueSchema } from "@/app/validationSchemas"
 import Spinner from "@/components/Spinner"
 import { Button } from "@/components/ui/button"
 import {
@@ -26,13 +26,13 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 })
 
-type IssueFormData = z.infer<typeof createIssueSchema>
+type IssueFormData = z.infer<typeof issueSchema>
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   })
 
   const router = useRouter()
@@ -41,7 +41,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const onSubmit = form.handleSubmit(async (data) => {
     try {
       setIsSubmitting(true)
-      await axios.post("/api/issues", data)
+      if (issue) await axios.patch("/api/issues/" + issue.id, data)
+      else await axios.post("/api/issues", data)
       router.push("/issues")
     } catch (error) {
       setIsSubmitting(false)
@@ -84,7 +85,13 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
             )}
           />
           <Button variant="outline" disabled={isSubmitting} type="submit">
-            {isSubmitting ? <Spinner label="Processing..." /> : "Create Issue"}
+            {isSubmitting ? (
+              <Spinner label="Processing..." />
+            ) : issue ? (
+              "Update Issue"
+            ) : (
+              "Create Issue"
+            )}
           </Button>
         </form>
       </Form>
