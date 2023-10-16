@@ -10,13 +10,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/components/ui/use-toast"
 import { Issue, User } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import ms from "ms"
-import { nullable } from "zod"
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
+  const { toast } = useToast()
+
   const {
     data: users,
     error,
@@ -36,9 +38,17 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     <Select
       defaultValue={issue.assignedToUserId || ""}
       onValueChange={(userId) => {
-        axios.patch("/api/issues/" + issue.id, {
-          assignedToUserId: userId || null,
-        })
+        axios
+          .patch("/api/issues/" + issue.id, {
+            assignedToUserId: userId || null,
+          })
+          .catch(() => {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "Changes could not be saved.",
+            })
+          })
       }}
     >
       <SelectTrigger>
