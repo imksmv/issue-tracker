@@ -23,7 +23,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       </div>
       {session && (
         <div className="flex flex-col gap-4">
-          <AssigneeSelect />
+          <AssigneeSelect issue={issue} />
           <EditIssueButton issueId={issue.id} />
           <DeleteIssueButton issueId={issue.id} />
         </div>

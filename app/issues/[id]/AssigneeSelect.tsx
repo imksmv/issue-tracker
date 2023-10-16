@@ -10,12 +10,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { User } from "@prisma/client"
+import { Issue, User } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import ms from "ms"
+import { nullable } from "zod"
 
-const AssigneeSelect = () => {
+const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const {
     data: users,
     error,
@@ -32,9 +33,16 @@ const AssigneeSelect = () => {
   if (isLoading) return <Skeleton className="h-10 w-full" />
 
   return (
-    <Select>
+    <Select
+      defaultValue={issue.assignedToUserId || ""}
+      onValueChange={(userId) => {
+        axios.patch("/api/issues/" + issue.id, {
+          assignedToUserId: userId || null,
+        })
+      }}
+    >
       <SelectTrigger>
-        <SelectValue placeholder="Select" />
+        <SelectValue placeholder="Unassigned" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
