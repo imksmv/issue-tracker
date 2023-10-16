@@ -18,63 +18,78 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const NavBar = () => {
+  return (
+    <header className="border-b mb-5 py-2">
+      <nav className="container flex justify-between">
+        <div className="flex items-center ">
+          <Link className="hidden xs:flex mr-2.5" href="/">
+            <Bug size={28} />
+          </Link>
+          <NavLinks />
+          <ThemeToggler />
+        </div>
+        <AuthStatus />
+      </nav>
+    </header>
+  )
+}
+
+const NavLinks = () => {
+  const currentPath = usePathname()
+
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
   ]
 
-  const currentPath = usePathname()
+  return (
+    <ul className="flex space-x-1 bg-accent py-1.5 px-2 rounded-md mr-2.5">
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link
+            href={link.href}
+            className={cn("px-3", {
+              "bg-background rounded-md py-1": link.href === currentPath,
+            })}
+          >
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const AuthStatus = () => {
   const { status, data: session } = useSession()
 
+  if (status === "loading") return null
+
+  if (status === "unauthenticated")
+    return (
+      <Link className="flex items-center" href="/api/auth/signin">
+        Log In
+      </Link>
+    )
+
   return (
-    <header className="border-b mb-5 py-2">
-      <nav className="container flex justify-between">
-        <div className="flex items-center space-x-1 xs:space-x-5">
-          <Link className="hidden xs:flex" href="/">
-            <Bug size={28} />
-          </Link>
-          <ul className="flex space-x-1 bg-accent py-1.5 px-2 rounded-md">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={cn("px-3", {
-                    "bg-background rounded-md py-1": link.href === currentPath,
-                  })}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ThemeToggler />
-        </div>
-        {status === "authenticated" && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="cursor-pointer">
-                <AvatarImage src={session.user!.image!} />
-                <AvatarFallback>
-                  {fallbackInitials(session.user!.name!)}
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent sideOffset={5} align="end">
-              <DropdownMenuLabel>{session.user!.email}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <Link href="/api/auth/signout">Log out</Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )}
-        {status === "unauthenticated" && (
-          <Link className="flex items-center" href="/api/auth/signin">
-            Log In
-          </Link>
-        )}
-      </nav>
-    </header>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Avatar className="cursor-pointer">
+          <AvatarImage src={session!.user!.image!} />
+          <AvatarFallback>
+            {fallbackInitials(session!.user!.name!)}
+          </AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent sideOffset={5} align="end">
+        <DropdownMenuLabel>{session!.user!.email}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href="/api/auth/signout">Log out</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 
