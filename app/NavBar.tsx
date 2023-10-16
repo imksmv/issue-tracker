@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Skeleton } from "@/components/ui/skeleton"
 import { fallbackInitials } from "@/lib/fallbackInitials"
 import { cn } from "@/lib/utils"
 import { Bug } from "lucide-react"
@@ -63,7 +64,12 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession()
 
-  if (status === "loading") return null
+  if (status === "loading")
+    return (
+      <div className="flex items-center">
+        <Skeleton className="h-5 w-12" />
+      </div>
+    )
 
   if (status === "unauthenticated")
     return (

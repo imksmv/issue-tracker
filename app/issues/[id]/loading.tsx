@@ -9,7 +9,7 @@ const LoadingIssueDetailPage = () => {
         <Skeleton className="h-5 w-[70px]" />
         <Skeleton className="h-5 w-[200px]" />
       </div>
-      <Card className="prose dark:prose-invert p-5 mt-5 space-y-3">
+      <Card className="p-5 mt-5 space-y-3">
         <Skeleton className="h-5" />
         <Skeleton className="h-5" />
         <Skeleton className="h-5" />
