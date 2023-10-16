@@ -19,37 +19,30 @@ import ms from "ms"
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { toast } = useToast()
 
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["users"],
-    queryFn: () => axios.get<User[]>("/api/users").then((res) => res.data),
-    staleTime: ms("60s"),
-    retry: 2,
-  })
+  const { data: users, error, isLoading } = useUsers()
 
   if (error) return null
 
   if (isLoading) return <Skeleton className="h-10 w-full" />
 
+  const assignIssue = (userId: string) => {
+    axios
+      .patch("/api/issues/" + issue.id, {
+        assignedToUserId: userId === "null" ? null : userId,
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "Changes could not be saved.",
+        })
+      })
+  }
+
   return (
     <Select
       defaultValue={issue.assignedToUserId || ""}
-      onValueChange={(userId) => {
-        axios
-          .patch("/api/issues/" + issue.id, {
-            assignedToUserId: userId || null,
-          })
-          .catch(() => {
-            toast({
-              variant: "destructive",
-              title: "Uh oh! Something went wrong.",
-              description: "Changes could not be saved.",
-            })
-          })
-      }}
+      onValueChange={assignIssue}
     >
       <SelectTrigger>
         <SelectValue placeholder="Unassigned" />
@@ -57,6 +50,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Suggestions</SelectLabel>
+          <SelectItem value="null">Unassigned</SelectItem>
           {users?.map((user) => (
             <SelectItem
               key={user.id}
@@ -71,5 +65,13 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     </Select>
   )
 }
+
+const useUsers = () =>
+  useQuery({
+    queryKey: ["users"],
+    queryFn: () => axios.get<User[]>("/api/users").then((res) => res.data),
+    staleTime: ms("60s"),
+    retry: 2,
+  })
 
 export default AssigneeSelect

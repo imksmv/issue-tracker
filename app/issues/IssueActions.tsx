@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import IssueStatusFilter from "./IssueStatusFilter"
 
 const IssueActions = () => {
   return (
-    <Link href="/issues/new">
-      <Button className="mb-3">New Issue</Button>
-    </Link>
+    <div className="flex justify-between mb-3">
+      <IssueStatusFilter />
+      <Link href="/issues/new">
+        <Button>New Issue</Button>
+      </Link>
+    </div>
   )
 }
 
