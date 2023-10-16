@@ -9,6 +9,8 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({}, { status: 401 })
 
   const body = await request.json()
+  const { title, description } = body
+
   const validation = issueSchema.safeParse(body)
 
   if (!validation.success)
@@ -16,8 +18,8 @@ export async function POST(request: NextRequest) {
 
   const newIssue = await prisma.issue.create({
     data: {
-      title: body.title,
-      description: body.description,
+      title,
+      description,
     },
   })
 
