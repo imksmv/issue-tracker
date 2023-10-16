@@ -3,9 +3,9 @@ import Link from "next/link"
 
 const IssueActions = () => {
   return (
-    <Button className="mb-3" asChild>
-      <Link href="/issues/new">New Issue</Link>
-    </Button>
+    <Link href="/issues/new">
+      <Button className="mb-3">New Issue</Button>
+    </Link>
   )
 }
 
