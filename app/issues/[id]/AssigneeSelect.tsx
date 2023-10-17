@@ -26,6 +26,9 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   if (isLoading) return <Skeleton className="h-10 w-full" />
 
   const assignIssue = (userId: string) => {
+    {
+      /* Temporary solution */
+    }
     axios
       .patch("/api/issues/" + issue.id, {
         assignedToUserId: userId === "null" ? null : userId,
@@ -50,6 +53,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Suggestions</SelectLabel>
+          {/* Temporary solution */}
           <SelectItem value="null">Unassigned</SelectItem>
           {users?.map((user) => (
             <SelectItem

@@ -8,6 +8,7 @@ import {
   SelectItem,
 } from "@/components/ui/select"
 import { Status } from "@prisma/client"
+import { useRouter } from "next/navigation"
 
 const statusMap: { label: string; value?: Status }[] = [
   { label: "All" },
@@ -17,12 +18,21 @@ const statusMap: { label: string; value?: Status }[] = [
 ]
 
 const IssueStatusFilter = () => {
+  const router = useRouter()
+
   return (
-    <Select>
+    // Temporary solution
+    <Select
+      onValueChange={(status) => {
+        const query = status === " " ? "" : `?status=${status}`
+        router.push("/issues/" + query)
+      }}
+    >
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Filter by" />
       </SelectTrigger>
       <SelectContent>
+        {/* Temporary solution */}
         {statusMap.map((status, index) => (
           <SelectItem key={index} value={status.value || " "}>
             {status.label}
