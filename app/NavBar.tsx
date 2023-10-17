@@ -81,7 +81,7 @@ const AuthStatus = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer">
+        <Avatar className="cursor-pointer h-9 w-9">
           <AvatarImage src={session!.user!.image!} />
           <AvatarFallback>
             {fallbackInitials(session!.user!.name!)}
