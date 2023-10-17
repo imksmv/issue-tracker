@@ -15,6 +15,7 @@ const NotFound = () => {
         className="lg:h-[600px] lg:w-[600px]"
         src={notFoundSvgColor}
         alt="not-found"
+        priority
       />
     </div>
   )
