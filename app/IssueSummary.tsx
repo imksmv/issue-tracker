@@ -19,11 +19,11 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
   return (
     <div className="flex gap-4">
       {containers.map((container) => (
-        <Link href={`/issues/?status=${container.status}`}>
-          <Card
-            className="hover:shadow-lg hover:scale-105 transition-all"
-            key={container.label}
-          >
+        <Link
+          key={container.label}
+          href={`/issues/?status=${container.status}`}
+        >
+          <Card className="hover:shadow-lg hover:scale-105 transition-all">
             <div className="flex flex-col gap-2 p-3">
               {container.label}
               <TypographyP className="text-2xl font-bold">
