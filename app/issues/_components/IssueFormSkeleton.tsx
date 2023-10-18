@@ -6,7 +6,7 @@ const IssueFormSkeleton = () => {
       <Skeleton className="h-10" />
       <div className="space-y-10">
         <Skeleton className="h-96" />
-        <Skeleton className="h-10 w-32 mt-2" />
+        <Skeleton className="h-10 w-32" />
       </div>
     </div>
   )
