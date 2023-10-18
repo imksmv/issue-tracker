@@ -36,7 +36,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
     <section className="container">
       <IssueActions />
 
-      <div className="ml-4">
+      <div className="flex justify-end">
         <Pagination
           itemCount={issueCount}
           currentPage={page}

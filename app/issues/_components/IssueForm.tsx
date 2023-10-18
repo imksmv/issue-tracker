@@ -55,7 +55,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   return (
     <section className="container">
       <Form {...form}>
-        <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
+        <form className="space-y-3" onSubmit={onSubmit}>
           <FormField
             name="title"
             control={form.control}

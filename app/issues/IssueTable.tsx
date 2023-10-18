@@ -3,7 +3,6 @@ import Link from "@/components/Link"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -27,7 +26,6 @@ interface Props {
 const IssueTable = ({ searchParams, issues }: Props) => {
   return (
     <Table className="mb-3">
-      <TableCaption>A list of your recent issues.</TableCaption>
       <TableHeader>
         <TableRow>
           {columns.map((column) => (
