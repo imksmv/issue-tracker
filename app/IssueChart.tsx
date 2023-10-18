@@ -1,7 +1,6 @@
 "use client"
 
-import { Card } from "@/components/ui/card"
-import { ResponsiveContainer, XAxis, YAxis, BarChart, Bar } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts"
 
 interface Props {
   open: number
@@ -11,21 +10,39 @@ interface Props {
 
 const IssueChart = ({ open, inProgress, closed }: Props) => {
   const data = [
-    { label: "Open", value: open },
-    { label: "In Progress", value: inProgress },
-    { label: "Closed", value: closed },
+    { label: "Open", Count: open },
+    { label: "In Progress", Count: inProgress },
+    { label: "Closed", Count: closed },
   ]
 
   return (
-    <Card>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
-          <XAxis dataKey="label" />
-          <YAxis padding={{ bottom: 1 }} />
-          <Bar dataKey="value" barSize={60} className="fill-progress" />
-        </BarChart>
-      </ResponsiveContainer>
-    </Card>
+    <ResponsiveContainer width="100%" minHeight={300} height="100%">
+      <BarChart
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <XAxis dataKey="label" />
+        <Tooltip
+          cursor={{ fill: "hsl(var(--muted))" }}
+          itemStyle={{
+            color: "hsl(var(--foreground))",
+          }}
+          labelStyle={{ color: "hsl(var(--muted-foreground))" }}
+          contentStyle={{
+            background: "hsl(var(--background))",
+            borderRadius: "10px",
+            borderStyle: "none",
+          }}
+        />
+
+        <Bar barSize={60} dataKey="Count" className="fill-progress" />
+      </BarChart>
+    </ResponsiveContainer>
   )
 }
 

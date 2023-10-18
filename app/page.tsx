@@ -10,11 +10,17 @@ export default async function Home() {
     where: { status: "IN_PROGRESS" },
   })
 
+  const props = { open, inProgress, closed }
+
   return (
     <section className="container">
-      {/* <LatestIssues /> */}
-      {/* <IssueSummary open={open} inProgress={inProgress} closed={closed} /> */}
-      <IssueChart open={open} inProgress={inProgress} closed={closed} />
+      <div className="grid md:grid-cols-2 gap-5 mb-5">
+        <div className="flex flex-col gap-5">
+          <IssueSummary {...props} />
+          <IssueChart {...props} />
+        </div>
+        <LatestIssues />
+      </div>
     </section>
   )
 }
