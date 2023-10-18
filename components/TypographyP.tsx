@@ -1,5 +1,11 @@
-import { PropsWithChildren } from "react"
+import { cn } from "@/lib/utils"
+import { ReactNode } from "react"
 
-export function TypographyP({ children }: PropsWithChildren) {
-  return <p className="leading-7">{children}</p>
+interface Props {
+  children: ReactNode
+  className?: string
+}
+
+export function TypographyP({ children, className }: Props) {
+  return <p className={cn("leading-7", className)}>{children}</p>
 }
