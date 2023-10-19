@@ -30,3 +30,5 @@ export default async function Home() {
     </section>
   )
 }
+
+export const dynamic = "force-dynamic"
