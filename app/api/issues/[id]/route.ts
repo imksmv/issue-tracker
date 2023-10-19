@@ -8,11 +8,11 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions)
-  if (!session) return NextResponse.json({}, { status: 401 })
+  // const session = await getServerSession(authOptions)
+  // if (!session) return NextResponse.json({}, { status: 401 })
 
   const body = await request.json()
-  const { title, description, assignedToUserId } = body
+  const { title, description, status, assignedToUserId } = body
 
   const validation = patchIssueSchema.safeParse(body)
 
@@ -24,6 +24,7 @@ export async function PATCH(
       id: parseInt(params.id),
     },
   })
+
   if (!issue)
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 })
 
@@ -44,6 +45,7 @@ export async function PATCH(
     data: {
       title,
       description,
+      status,
       assignedToUserId,
     },
   })

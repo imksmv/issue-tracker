@@ -5,7 +5,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -52,7 +51,6 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Suggestions</SelectLabel>
           {/* Temporary solution */}
           <SelectItem value="null">Unassigned</SelectItem>
           {users?.map((user) => (

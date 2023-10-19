@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth"
 import authOptions from "@/app/auth/authOptions"
 import AssigneeSelect from "./AssigneeSelect"
 import { cache } from "react"
+import StatusSelect from "./StatusSelect"
 
 const fetchUser = cache((issueId: number) =>
   prisma.issue.findUnique({
@@ -31,12 +32,13 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="container grid md:grid-cols-5 gap-5">
-      <div className=" md:col-span-4">
+      <div className="md:col-span-4">
         <IssueDetails issue={issue} />
       </div>
       {session && (
         <div className="flex flex-col gap-4">
           <AssigneeSelect issue={issue} />
+          <StatusSelect issue={issue} />
           <EditIssueButton issueId={issue.id} />
           <DeleteIssueButton issueId={issue.id} />
         </div>
