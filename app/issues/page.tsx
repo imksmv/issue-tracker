@@ -1,6 +1,6 @@
 import Pagination from "@/components/Pagination"
 import prisma from "@/prisma/client"
-import { Status } from "@prisma/client"
+import { Prisma, Status } from "@prisma/client"
 import IssueActions from "./IssueActions"
 import IssueTable, { IssueQuery, columnNames } from "./IssueTable"
 import { Metadata } from "next"
@@ -24,7 +24,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const orderBy = columnNames.includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
-    : undefined
+    : { createdAt: Prisma.SortOrder.desc }
 
   const page = parseInt(searchParams.page) || 1
   const pageSize = 10
