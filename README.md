@@ -2,7 +2,7 @@
 
 A platform to facilitate the management and tracking of various tasks. Once
 signed in, users will be able to create, edit, delete and assign the tasks to other signed in users. The data is
-saved in PlanetScale database.
+saved on PlanetScale database.
 
 ## Getting Started
 
