@@ -11,3 +11,5 @@ To get started follow these steps:
 1. Clone this repository to your local machine.
 2. Run `npm install` to install the required dependencies.
 3. Run `npm run dev` to start the web server.
+
+INFO: PlanetScale does not provide a free tier db any longer... The app is currently moving to a new db.
